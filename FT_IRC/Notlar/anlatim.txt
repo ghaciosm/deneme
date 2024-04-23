@@ -1,0 +1,20 @@
+sig_atomic_t, sinyal işleyicilerinde kullanılan değişkenlerin türü olarak tanımlanır çünkü bu tür, 
+işletim sistemi veya başka bir kaynaktan gelen bir sinyal tarafından herhangi bir zamanda değiştirilebilecek bir
+değişkenin güvenli bir şekilde işlenmesini sağlar. volatile niteliği ile birlikte kullanıldığında, değişkenin 
+beklenmeyen bir şekilde değişebileceği ve bu değişikliklerin beklenmediği bir zamanda olabileceği belirtilir. 
+Bu nedenle, volatile sig_atomic_t türü, sinyal işleyicilerinde kullanılan değişkenlerin tipik olarak tanımlandığı şekildir, 
+böylece sinyal işleyicileri güvenli bir şekilde çalışabilir ve programın beklenmedik sinyalleri işleyebilir.
+
+sigHandler
+Ctrl+C tuşlarına bastığında veya kill komutu kullanıldığında gönderilen SIGINT ve SIGTERM 
+sinyalleri için sinyal işlemeyi de ayarlar. Bu sinyallerden biri 
+alındığında signalHandler fonksiyonu çağrılır. Bu fonksiyon işaret 
+değişkenini 1'e ayarlar ve hangi sinyalin yakalandığını belirten 
+bir mesaj yazdırır. Sinyal SIGINT veya SIGTERM ise program, serverInstance
+nesnesini siler ve 0 durum koduyla çıkar.
+
+
+
+
+
+

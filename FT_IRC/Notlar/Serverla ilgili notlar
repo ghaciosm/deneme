@@ -1,0 +1,36 @@
+Socket İşlemleri:
+
+socket(): Bir soket oluşturur.
+bind(): Soket'i bir adrese ve porta bağlar.
+listen(): Soket'i gelen bağlantıları dinlemeye alır.
+accept(): Gelen bir bağlantıyı kabul eder.
+connect(): Bir soket'i uzak bir adrese ve porta bağlar.
+send(): Soket üzerinden veri gönderir.
+recv(): Soket üzerinden veri alır.
+close(): Soket'i kapatır.
+
+Kodumuzda 
+_socket: Gelen bağlantıları dinlemek için kullanılan soket tanımlayıcısı.
+adres: Soketi belirli bir IP adresine ve bağlantı noktasına bağlamak için kullanılan soket adresi yapısı.
+clientAddress: Gelen bağlantıları kabul etmek için kullanılan soket adresi yapısı.
+readfds ve writefds: Dosya tanımlayıcılarının sırasıyla okumaya ve yazmaya hazır olup olmadığını izlemek için kullanılan dosya tanımlayıcı kümeleri.
+writeFdsCopy ve readFdsCopy: Orijinal kümeleri değiştirirken yarış koşullarından kaçınmak için kullanılan tamamlayıcı dosya tanımlayıcı kümeleri.
+client: Sunucuya bağlı istemcileri temsil eden İstemci nesnelerinin bir vektörü.
+channels: Sunucuda bulunan odaları (veya kanalları) temsil eden Room nesnelerinin bir vektörü.
+buffer: Gelen verileri depolamak için kullanılan bir karakter dizisi.
+_commands: Komut adlarını, bu komutları işleyen Server sınıfının üye işlevleriyle eşleyen bir harita.
+Sunucu sınıfının aşağıdakiler de dahil olmak üzere çeşitli üye işlevleri vardır:
+
+run(): Sunucunun ana döngüsü. Gelen bağlantıları dinler, kabul eSoketi kapatır ve ayrılmış belleği serbest bırakır.der ve istemciler tarafından gönderilen komutları işler.
+join(const std::string & params, Client &client), part(const std::string & params, Client &client), privmsg(const std::string & command, Client &client), op(const std::string & params, Client &client), mode(const std::string & params, Client &client), nick(const std::string & params, Client &client), who(const std::string & command, Client &client), konu( const std::string & command, Client &client), ping(const std::string & parametreler, Client &client), Quit(const std::string & parametreler, Client &client), whois(const std::string &, Client) &cli), list(const std::string & params, Client &client), nameler(const std::string & params, Client &fd), notice(const std::string & input, Client &fd), kick(const std: :string & input, Client &fd), user(const std::string & params, Client &client), cap(const std::string & params, Client &client), pass(const std::string & param, Client &client) , davet(const std::string & input, Client &client): İstemciler tarafından gönderilen belirli komutları işleyen üye işlevleri.
+isClient(const std::string & Nick): Belirli bir takma isme sahip bir istemcinin sunucuya bağlı olup olmadığını kontrol eden bir üye işlevi.
+getRoom(const std::string & name): Belirli bir ada sahip bir Room nesnesine başvuru döndüren bir üye işlev.
+getRooms(): Room nesnelerinin vektörüne referans döndüren bir üye işlev.
+isRoom(const std::string & name): Belirli bir ada sahip bir odanın mevcut olup olmadığını kontrol eden üye işlevi.
+addRoom(const Room &room): Room nesnelerinin vektörüne yeni bir oda ekleyen üye işlevi.
+addClient(const Client &client): Client nesnelerinin vektörüne yeni bir istemci ekleyen üye işlev.
+getClients(): Client nesnelerinin vektörüne referans döndüren bir üye işlev.
+ResponseAllClientResponseToGui(Client &client, Room &room): Bir odadaki tüm istemcilere mesaj gönderen üye işlevi.
+isClientInRoom(Room &room, const Client &client), isClientInRoom(Client &client, string &room), isClientInRoom(Room &room, string &nick): Bir müşterinin odada olup olmadığını kontrol eden üye işlevleri.
+RemoveClient(int fd): Bir istemciyi Client nesnelerinin vektöründen kaldıran bir üye işlev.
+getClientByNick(const std::string & nick): Belirli bir takma adla Client nesnesine başvuru döndüren bir üye işlevi.
