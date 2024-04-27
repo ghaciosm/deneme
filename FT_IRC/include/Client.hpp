@@ -48,7 +48,7 @@ public:
 	bool			operator==(const Client &rhs) const;
 private:
 	int				_type; // 1:hex 3:bot
-	int				_fd;
+	int				_fd;// her clientin kendine ait fd si olacak ve server burdan haberleşecek (socket)
 	int				_port;
 	string			buffer;
 	vector<string>	_messagesFromServer;

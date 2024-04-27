@@ -79,7 +79,7 @@ Server::~Server()
 
 void Server::run()
 {
-	socklen_t templen = sizeof(sockaddr_in);
+	socklen_t templen = sizeof(sockaddr_in);//Soket adresi yapısının boyutunu tuta
  	bool isReadyToSelect = true;
 	int bytesRead = 0;
 
@@ -95,6 +95,10 @@ void Server::run()
 		{
 			readFdsCopy = readfds;
 			writeFdsCopy = writefds;
+		//Burada, readfds ve writefds kümelerinin kopyaları alınır. select() çağrısı, 
+		//bu kümelerdeki tanımlayıcıları değiştirebilir (yani hangi soketlerde olay 
+		//olduğunu belirleyerek sadece o soketleri işaret eder),
+		//bu yüzden orijinal kümeler her çağrı öncesi korunur.
 			if (select(Utils::getMaxFd(clients, this->_socket) + 1, &readFdsCopy, &writeFdsCopy, NULL, 0) < 0)
 			{
 				throw Exception("Select failed");
@@ -108,6 +112,7 @@ void Server::run()
 			{
 				throw Exception("Accept failed");
 			}
+			//Bu, soketin bloke olmadan, veri hazır olmadığında hemen dönmesini sağlar.
 			if (fcntl(newSocket, F_SETFL, O_NONBLOCK) < 0)
 				throw Exception("Fcntl failed on Client");
 			int port = ntohs(clientAddress.sin_port);
